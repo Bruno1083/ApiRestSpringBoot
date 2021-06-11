@@ -5,12 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "Usuario")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,8 +15,11 @@ import javax.persistence.Id;
 public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codigo;
+    private Integer id;
+    @Column(nullable = false, length = 50)
     private String nome;
+    @Column(nullable = false, length = 30)
     private String login;
+    @Column(nullable = false, length = 30)
     private String senha;
 }

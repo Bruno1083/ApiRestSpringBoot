@@ -1,12 +1,11 @@
 package com.cavalcante.ApiRestSpringBoot.controller;
 
+import com.cavalcante.ApiRestSpringBoot.model.UsuarioModel;
 import com.cavalcante.ApiRestSpringBoot.repository.UsuarioRepository;
-import org.hibernate.mapping.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping({"/usuario"})
@@ -19,10 +18,14 @@ public class UsuarioController {
     public List findAll(){
         return (List) repository.findAll();
     }
-    @GetMapping(path = "/usuario/{codigo}")
-    public ResponseEntity findById(@PathVariable("codigo") Integer codigo){
-        return repository.findById(codigo)
+    @GetMapping(path = "/usuario/{id}")
+    public ResponseEntity findById(@PathVariable("id") Integer id){
+        return repository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
+    }
+    @PostMapping
+    public UsuarioModel create(@RequestBody UsuarioModel usuarioModel){
+        return repository.save(usuarioModel);
     }
 }
